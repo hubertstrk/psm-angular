@@ -1,8 +1,20 @@
-<div *ngFor="let item of psm">
-  <p-card [header]="item.name" [subheader]="item.formula">
-    <div>
-      {{ item.firstApprovedAt.toLocaleDateString() }} -
-      {{ item.lastApprovedAt.toLocaleDateString() }}
+<div *ngFor="let item of psm" class="cursor-pointer mb-1">
+  <p-card>
+    <ng-template pTemplate="title">{{ item.name }}</ng-template>
+
+    <ng-template pTemplate="subtitle">
+      <p-tag [value]="item.formula" severity="info" />
+    </ng-template>
+
+    <div class="flex gap-3">
+      <div class="flex align-items-center gap-2">
+        <span class="material-icons">check</span>
+        <span>{{ item.firstApprovedAt.toLocaleDateString() }}</span>
+      </div>
+      <div class="flex align-items-center gap-2">
+        <span class="material-icons">block</span>
+        <span>{{ item.lastApprovedAt.toLocaleDateString() }}</span>
+      </div>
     </div>
   </p-card>
 </div>

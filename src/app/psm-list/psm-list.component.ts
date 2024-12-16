@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common'
 import { PsmService } from '../../services/psm.service'
 import { Psm } from '../../models/psm.model'
 import { CardModule } from 'primeng/card'
+import { TagModule } from 'primeng/tag'
 
 @Component({
   selector: 'app-psm-list',
   standalone: true,
-  imports: [CommonModule, CardModule],
+  imports: [CommonModule, CardModule, TagModule],
   providers: [PsmService],
   templateUrl: './psm-list.component.html',
 })

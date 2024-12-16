@@ -9,7 +9,7 @@ export class PsmService {
   private baseUrl = 'https://psm-api.bvl.bund.de/ords/psm/api-v1/mittel/'
 
   getPsm(): Observable<Psm[]> {
-    const url = `${this.baseUrl}?limit=100`
+    const url = `${this.baseUrl}?limit=10`
     return this.http.get<PsmQueryResult>(url).pipe(
       map((result) =>
         result.items.map((x) => ({
