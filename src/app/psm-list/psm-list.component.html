@@ -1,1 +1,8 @@
-<p>psm-list works!</p>
+<div *ngFor="let item of psm">
+  <p-card [header]="item.name" [subheader]="item.formula">
+    <div>
+      {{ item.firstApprovedAt.toLocaleDateString() }} -
+      {{ item.lastApprovedAt.toLocaleDateString() }}
+    </div>
+  </p-card>
+</div>
