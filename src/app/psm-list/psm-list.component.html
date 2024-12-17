@@ -1,20 +1,40 @@
-<div *ngFor="let item of psm" class="cursor-pointer mb-1">
-  <p-card>
-    <ng-template pTemplate="title">{{ item.name }}</ng-template>
+<div class="mb-2" style="min-height: 4px">
+  <p-progressBar
+    *ngIf="isLoading"
+    mode="indeterminate"
+    [style]="{ height: '4px' }"
+  />
+</div>
 
-    <ng-template pTemplate="subtitle">
-      <p-tag [value]="item.formula" severity="info" />
-    </ng-template>
-
-    <div class="flex gap-3">
+<div class="m-3 flex flex-column gap-2">
+  <p-dropdown
+    [options]="scopes"
+    [(ngModel)]="selectedScope"
+    optionLabel="value"
+    [filter]="true"
+    filterBy="value"
+    [showClear]="true"
+    (ngModelChange)="onFilterChanged()"
+    placeholder="Wirkbereich auswählen"
+  >
+    <ng-template pTemplate="selectedItem" let-selectedOption>
       <div class="flex align-items-center gap-2">
-        <span class="material-icons">check</span>
-        <span>{{ item.firstApprovedAt.toLocaleDateString() }}</span>
+        <div>{{ selectedScope?.value }}</div>
       </div>
+    </ng-template>
+    <ng-template let-scope pTemplate="item">
       <div class="flex align-items-center gap-2">
-        <span class="material-icons">block</span>
-        <span>{{ item.lastApprovedAt.toLocaleDateString() }}</span>
+        <div>{{ scope.value }}</div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+
+  <div class="flex flex-column my-2 gap-1">
+    <div *ngFor="let item of psm">
+      <div class="flex gap-2">
+        <div>{{ item.id }}</div>
+        <div>{{ item.name }}</div>
       </div>
     </div>
-  </p-card>
+  </div>
 </div>

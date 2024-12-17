@@ -6,6 +6,7 @@ import {
   QueryClient,
   withDevtools,
 } from '@tanstack/angular-query-experimental'
+import { provideAnimations } from '@angular/platform-browser/animations'
 
 import { routes } from './app.routes'
 
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
       }),
       withDevtools()
     ),
+    provideAnimations(),
   ],
 }
