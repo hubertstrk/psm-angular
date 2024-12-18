@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms'
 import { ProgressSpinnerModule } from 'primeng/progressspinner'
 import { firstValueFrom } from 'rxjs'
 import { ProgressBarModule } from 'primeng/progressbar'
+import { intersection } from 'lodash'
 
 @Component({
   selector: 'app-psm-list',
@@ -38,6 +39,10 @@ export class PsmListComponent implements OnInit {
     this.psmService.getCodeListByNumber(21).subscribe((data) => {
       this.scopes = data
     })
+
+    this.psmService.getActiveAgents().subscribe((data) => {
+      this.activeAgents = data
+    })
   }
 
   async onFilterChanged(): Promise<void> {
@@ -45,18 +50,38 @@ export class PsmListComponent implements OnInit {
     this.psm = []
 
     try {
-      const ids = this.selectedScope
+      const psmScopes = this.selectedScope
         ? await firstValueFrom(
             this.psmService.getPsmIdsByScope(this.selectedScope?.code ?? '')
           )
         : []
 
+      const psmActiveAgent = this.selectedActiveAgent
+        ? await firstValueFrom(
+            this.psmService.getPsmIdsByActiveAgent(
+              this.selectedActiveAgent?.id ?? ''
+            )
+          )
+        : []
+
+      const ids =
+        this.selectedScope && this.selectedActiveAgent
+          ? intersection(
+              psmScopes.map((x) => x.psmId),
+              psmActiveAgent.map((x) => x.psmId)
+            )
+          : [
+              ...psmScopes.map((x) => x.psmId),
+              ...psmActiveAgent.map((x) => x.psmId),
+            ]
+
       if (!ids.length) {
         return
       }
 
+      // get psm by id
       const queries = ids.map((id) =>
-        firstValueFrom(this.psmService.getPsmById(id.psmId))
+        firstValueFrom(this.psmService.getPsmById(id))
       )
 
       const psm = await Promise.all(queries)

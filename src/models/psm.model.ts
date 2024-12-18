@@ -56,8 +56,34 @@ export interface ActiveAgentQueryResult {
 }
 
 export interface ActiveAgent {
-  number: string
+  id: string
   name: string
   category: string
   approved: Date
+}
+
+export interface PsmActiveAgentQueryyResult {
+  items: [
+    {
+      gehalt_bio: 0
+      gehalt_bio_einheit: 'string'
+      gehalt_einheit: 'string'
+      gehalt_rein: 0
+      gehalt_rein_grundstruktur: 0
+      kennr: 'string'
+      wirknr: 'string'
+      wirkvar: 'string'
+    },
+  ]
+}
+
+export interface PsmActiveAgent {
+  bioContent: number
+  bioContentUnit: string
+  contentUnit: string
+  pureContent: number
+  pureContentBaseStructure: number
+  psmId: string
+  activeAgentId: string
+  activeAgentVariant: string
 }

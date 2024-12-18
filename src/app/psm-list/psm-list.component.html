@@ -1,40 +1,77 @@
-<div class="mb-2" style="min-height: 4px">
+<div class="mb-2" style="min-height: 6px">
   <p-progressBar
     *ngIf="isLoading"
     mode="indeterminate"
-    [style]="{ height: '4px' }"
+    [style]="{ height: '6px' }"
   />
 </div>
 
 <div class="m-3 flex flex-column gap-2">
-  <p-dropdown
-    [options]="scopes"
-    [(ngModel)]="selectedScope"
-    optionLabel="value"
-    [filter]="true"
-    filterBy="value"
-    [showClear]="true"
-    (ngModelChange)="onFilterChanged()"
-    placeholder="Wirkbereich auswählen"
-  >
-    <ng-template pTemplate="selectedItem" let-selectedOption>
-      <div class="flex align-items-center gap-2">
-        <div>{{ selectedScope?.value }}</div>
-      </div>
-    </ng-template>
-    <ng-template let-scope pTemplate="item">
-      <div class="flex align-items-center gap-2">
-        <div>{{ scope.value }}</div>
-      </div>
-    </ng-template>
-  </p-dropdown>
+  <div class="flex gap-2">
+    <!-- filter by scope -->
+    <p-dropdown
+      [options]="scopes"
+      [(ngModel)]="selectedScope"
+      optionLabel="value"
+      [filter]="true"
+      filterBy="value"
+      [showClear]="true"
+      (ngModelChange)="onFilterChanged()"
+      placeholder="Wirkbereich auswählen"
+    >
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <div>{{ selectedScope?.value }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-scope pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ scope.value }} {{ scope.code }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
 
+    <!-- filter by active agent -->
+    <p-dropdown
+      [options]="activeAgents"
+      [(ngModel)]="selectedActiveAgent"
+      optionLabel="name"
+      [filter]="true"
+      filterBy="name"
+      [showClear]="true"
+      (ngModelChange)="onFilterChanged()"
+      placeholder="Wirkstoff auswählen"
+    >
+      <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
+          <div>{{ selectedActiveAgent?.name }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-activeAgent pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ activeAgent.name }} {{ activeAgent.id }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+  </div>
+
+  <!-- psm list -->
   <div class="flex flex-column my-2 gap-1">
-    <div *ngFor="let item of psm">
-      <div class="flex gap-2">
-        <div>{{ item.id }}</div>
-        <div>{{ item.name }}</div>
-      </div>
+    <div
+      *ngIf="
+        (selectedActiveAgent || selectedScope) && !psm.length;
+        else psmList
+      "
+    >
+      Keine Übereinstimmungen
     </div>
+    <ng-template #psmList>
+      <div *ngFor="let item of psm">
+        <div class="flex gap-2">
+          <div>{{ item.id }}</div>
+          <div>{{ item.name }}</div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

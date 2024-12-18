@@ -10,6 +10,8 @@ import {
   CodeQueryResult,
   PsmScope,
   PsmScopeQueryResult,
+  PsmActiveAgentQueryyResult,
+  PsmActiveAgent,
 } from '../models/psm.model'
 
 @Injectable({ providedIn: 'root' })
@@ -93,12 +95,30 @@ export class PsmService {
     return this.http.get<ActiveAgentQueryResult>(url).pipe(
       map((result) => {
         return result.items.map((x) => ({
-          number: x.wirknr,
+          id: x.wirknr,
           name: x.wirkstoffname,
           category: x.kategorie,
           approved: new Date(x.genehmigt),
         }))
       })
+    )
+  }
+
+  getPsmIdsByActiveAgent(activeAgentId: string): Observable<PsmActiveAgent[]> {
+    const url = `${this.baseUrl}/wirkstoff_gehalt/?wirknr=${activeAgentId}`
+    return this.http.get<PsmActiveAgentQueryyResult>(url).pipe(
+      map((result) =>
+        result.items.map((x) => ({
+          bioContent: x.gehalt_bio,
+          bioContentUnit: x.gehalt_bio_einheit,
+          contentUnit: x.gehalt_einheit,
+          pureContent: x.gehalt_rein,
+          pureContentBaseStructure: x.gehalt_rein_grundstruktur,
+          psmId: x.kennr,
+          activeAgentId: x.wirknr,
+          activeAgentVariant: x.wirkvar,
+        }))
+      )
     )
   }
 }
