@@ -2,17 +2,20 @@ import { HttpClient } from '@angular/common/http'
 import { inject, Injectable } from '@angular/core'
 import { map, Observable } from 'rxjs'
 import {
-  PsmQueryResult,
   Psm,
-  ActiveAgentQueryResult,
   ActiveAgent,
   Code,
-  CodeQueryResult,
   PsmScope,
-  PsmScopeQueryResult,
-  PsmActiveAgentQueryyResult,
   PsmActiveAgent,
 } from '../models/psm.model'
+
+import {
+  PsmQueryResult,
+  ActiveAgentQueryResult,
+  CodeQueryResult,
+  PsmScopeQueryResult,
+  PsmActiveAgentQueryResult,
+} from '../models/query-result.model'
 
 @Injectable({ providedIn: 'root' })
 export class PsmService {
@@ -106,15 +109,15 @@ export class PsmService {
 
   getPsmIdsByActiveAgent(activeAgentId: string): Observable<PsmActiveAgent[]> {
     const url = `${this.baseUrl}/wirkstoff_gehalt/?wirknr=${activeAgentId}`
-    return this.http.get<PsmActiveAgentQueryyResult>(url).pipe(
+    return this.http.get<PsmActiveAgentQueryResult>(url).pipe(
       map((result) =>
         result.items.map((x) => ({
+          psmId: x.kennr,
           bioContent: x.gehalt_bio,
           bioContentUnit: x.gehalt_bio_einheit,
           contentUnit: x.gehalt_einheit,
           pureContent: x.gehalt_rein,
           pureContentBaseStructure: x.gehalt_rein_grundstruktur,
-          psmId: x.kennr,
           activeAgentId: x.wirknr,
           activeAgentVariant: x.wirkvar,
         }))

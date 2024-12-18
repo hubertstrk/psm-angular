@@ -7,6 +7,13 @@
 </div>
 
 <div class="m-3 flex flex-column gap-2">
+  <input
+    type="text"
+    pInputText
+    [(ngModel)]="search"
+    (ngModelChange)="onSearchChange()"
+  />
+
   <div class="flex gap-2">
     <!-- filter by scope -->
     <p-dropdown
@@ -16,7 +23,7 @@
       [filter]="true"
       filterBy="value"
       [showClear]="true"
-      (ngModelChange)="onFilterChanged()"
+      (ngModelChange)="filterByScope()"
       placeholder="Wirkbereich auswählen"
     >
       <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -39,7 +46,7 @@
       [filter]="true"
       filterBy="name"
       [showClear]="true"
-      (ngModelChange)="onFilterChanged()"
+      (ngModelChange)="filterByActiveAgent()"
       placeholder="Wirkstoff auswählen"
     >
       <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -70,6 +77,10 @@
         <div class="flex gap-2">
           <div>{{ item.id }}</div>
           <div>{{ item.name }}</div>
+        </div>
+        <div>
+          {{ item.firstApprovedAt.toLocaleDateString() }} -
+          {{ item.lastApprovedAt.toLocaleDateString() }}
         </div>
       </div>
     </ng-template>
