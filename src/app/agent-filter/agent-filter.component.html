@@ -1,0 +1,21 @@
+<p-dropdown
+  [options]="activeAgents"
+  [(ngModel)]="selectedActiveAgent"
+  optionLabel="name"
+  [filter]="true"
+  filterBy="name"
+  [showClear]="true"
+  (ngModelChange)="filterByActiveAgent()"
+  placeholder="Wirkstoff auswählen"
+>
+  <ng-template pTemplate="selectedItem" let-selectedOption>
+    <div class="flex align-items-center gap-2">
+      <div>{{ selectedActiveAgent?.name }}</div>
+    </div>
+  </ng-template>
+  <ng-template let-activeAgent pTemplate="item">
+    <div class="flex align-items-center gap-2">
+      <div>{{ activeAgent.name }} {{ activeAgent.id }}</div>
+    </div>
+  </ng-template>
+</p-dropdown>

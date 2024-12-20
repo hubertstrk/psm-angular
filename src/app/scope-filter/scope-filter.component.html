@@ -1,0 +1,22 @@
+<p-dropdown
+  [options]="scopes"
+  [(ngModel)]="selectedScope"
+  optionLabel="value"
+  optionKey="code"
+  [filter]="true"
+  filterBy="value"
+  [showClear]="true"
+  (ngModelChange)="filterByScope()"
+  placeholder="Wirkbereich auswählen"
+>
+  <ng-template pTemplate="selectedItem" let-selectedOption>
+    <div class="flex align-items-center gap-2">
+      <div>{{ selectedScope?.value }}</div>
+    </div>
+  </ng-template>
+  <ng-template let-scope pTemplate="item">
+    <div class="flex align-items-center gap-2">
+      <div>{{ scope.value }} {{ scope.code }}</div>
+    </div>
+  </ng-template>
+</p-dropdown>
