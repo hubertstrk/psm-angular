@@ -11,6 +11,7 @@ import { LoadingIndicatorComponent } from '../loading-indicator/loading-indicato
 import { ScopeFilterComponent } from '../scope-filter/scope-filter.component'
 import { AgentFilterComponent } from '../agent-filter/agent-filter.component'
 import { NameSearchComponent } from '../name-search/name-search.component'
+import { PsmListItemComponent } from '../psm-list-item/psm-list-item.component'
 
 @Component({
   selector: 'app-psm-list',
@@ -22,6 +23,7 @@ import { NameSearchComponent } from '../name-search/name-search.component'
     NameSearchComponent,
     ScopeFilterComponent,
     AgentFilterComponent,
+    PsmListItemComponent,
   ],
   providers: [PsmService],
   templateUrl: './psm-list.component.html',

@@ -1,0 +1,10 @@
+<ng-container *ngIf="item">
+  <div class="flex gap-2">
+    <div>{{ item.id }}</div>
+    <div>{{ item.name }}</div>
+  </div>
+  <div>
+    {{ item.firstApprovedAt.toLocaleDateString() }} -
+    {{ item.lastApprovedAt.toLocaleDateString() }}
+  </div>
+</ng-container>

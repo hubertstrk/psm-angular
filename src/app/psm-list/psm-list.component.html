@@ -9,14 +9,7 @@
 
   <div class="flex flex-column my-2 gap-1">
     <div *ngFor="let item of psm">
-      <div class="flex gap-2">
-        <div>{{ item.id }}</div>
-        <div>{{ item.name }}</div>
-      </div>
-      <div>
-        {{ item.firstApprovedAt.toLocaleDateString() }} -
-        {{ item.lastApprovedAt.toLocaleDateString() }}
-      </div>
+      <app-psm-list-item [item]="item"></app-psm-list-item>
     </div>
   </div>
 </div>
