@@ -4,11 +4,12 @@ import { PsmService } from '../../services/psm.service'
 import { DropdownModule } from 'primeng/dropdown'
 import { FormsModule } from '@angular/forms'
 import { firstValueFrom } from 'rxjs'
+import { TagModule } from 'primeng/tag'
 
 @Component({
   selector: 'app-scope-filter',
   standalone: true,
-  imports: [FormsModule, DropdownModule],
+  imports: [FormsModule, DropdownModule, TagModule],
   templateUrl: './scope-filter.component.html',
 })
 export class ScopeFilterComponent implements OnInit {

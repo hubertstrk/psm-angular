@@ -5,16 +5,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core'
-import { ActiveAgent } from '../../models/psm.model'
-import { PsmService } from '../../services/psm.service'
-import { DropdownModule } from 'primeng/dropdown'
 import { FormsModule } from '@angular/forms'
 import { firstValueFrom } from 'rxjs'
+import { DropdownModule } from 'primeng/dropdown'
+import { TagModule } from 'primeng/tag'
+
+import { ActiveAgent } from '../../models/psm.model'
+import { PsmService } from '../../services/psm.service'
 
 @Component({
   selector: 'app-agent-filter',
   standalone: true,
-  imports: [FormsModule, DropdownModule],
+  imports: [FormsModule, DropdownModule, TagModule],
   templateUrl: './agent-filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

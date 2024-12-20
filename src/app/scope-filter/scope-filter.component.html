@@ -7,7 +7,9 @@
   filterBy="value"
   [showClear]="true"
   (ngModelChange)="filterByScope()"
-  placeholder="Wirkbereich auswählen"
+  placeholder="Wirkbereich"
+  [style]="{ width: '100%', 'max-width': '100% !important' }"
+  [panelStyle]="{ width: '93vw', 'max-width': '93vw !important' }"
 >
   <ng-template pTemplate="selectedItem" let-selectedOption>
     <div class="flex align-items-center gap-2">
@@ -15,8 +17,11 @@
     </div>
   </ng-template>
   <ng-template let-scope pTemplate="item">
-    <div class="flex align-items-center gap-2">
-      <div>{{ scope.value }} {{ scope.code }}</div>
+    <div class="flex justify-content-between gap-2">
+      <div class="white-space-normal">
+        {{ scope.value }}
+      </div>
+      <p-tag [value]="scope.code" />
     </div>
   </ng-template>
 </p-dropdown>

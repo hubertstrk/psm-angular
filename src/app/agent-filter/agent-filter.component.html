@@ -6,7 +6,9 @@
   filterBy="name"
   [showClear]="true"
   (ngModelChange)="filterByActiveAgent()"
-  placeholder="Wirkstoff auswählen"
+  placeholder="Wirkstoff"
+  [style]="{ width: '100%', 'max-width': '100% !important' }"
+  [panelStyle]="{ width: '93vw', 'max-width': '93vw !important' }"
 >
   <ng-template pTemplate="selectedItem" let-selectedOption>
     <div class="flex align-items-center gap-2">
@@ -14,8 +16,11 @@
     </div>
   </ng-template>
   <ng-template let-activeAgent pTemplate="item">
-    <div class="flex align-items-center gap-2">
-      <div>{{ activeAgent.name }} {{ activeAgent.id }}</div>
+    <div class="flex justify-content-between gap-2">
+      <div class="white-space-normal">
+        {{ activeAgent.name }}
+      </div>
+      <p-tag [value]="activeAgent.id" />
     </div>
   </ng-template>
 </p-dropdown>

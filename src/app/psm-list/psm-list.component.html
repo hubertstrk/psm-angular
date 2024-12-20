@@ -3,13 +3,13 @@
 </div>
 
 <div class="m-3 flex flex-column gap-2">
-  <app-name-search (filtered)="nameFilterChanged($event)"></app-name-search>
-  <app-scope-filter (filtered)="scopeFilterChanged($event)"></app-scope-filter>
-  <app-agent-filter (filtered)="agentFilterChanged($event)"></app-agent-filter>
+  <app-name-search (filtered)="nameFilterChanged($event)" />
+  <app-scope-filter (filtered)="scopeFilterChanged($event)" />
+  <app-agent-filter (filtered)="agentFilterChanged($event)" />
 
   <div class="flex flex-column my-2 gap-1">
-    <div *ngFor="let item of psm">
-      <app-psm-list-item [item]="item"></app-psm-list-item>
+    <div *ngFor="let item of psm" class="my-1">
+      <app-psm-list-item [item]="item" />
     </div>
   </div>
 </div>
