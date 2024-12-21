@@ -51,3 +51,12 @@ export interface SignalWord {
   psmId: string
   signal: string
 }
+
+export interface Packaging {
+  psmId: string
+  number: string
+  unit: string
+  amount: string
+  type: string
+  material: string
+}

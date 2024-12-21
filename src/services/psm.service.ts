@@ -10,6 +10,7 @@ import {
   SafetyNote,
   HazardNote,
   SignalWord,
+  Packaging,
 } from '../models/psm.model'
 
 import {
@@ -20,7 +21,8 @@ import {
   PsmActiveAgentQueryResult,
   HazardNoteQueryResult,
   SafetyNoteQueryResult,
-  SiganlWordQueryResult,
+  SignalWordQueryResult,
+  PackagingQueryResult,
 } from '../models/query-result.model'
 
 @Injectable({ providedIn: 'root' })
@@ -155,11 +157,28 @@ export class PsmService {
   getSignalWord(id: string): Observable<SignalWord[]> {
     const url = `${this.baseUrl}/ghs_signalwoerter/?kennr=${id}`
 
-    return this.http.get<SiganlWordQueryResult>(url).pipe(
+    return this.http.get<SignalWordQueryResult>(url).pipe(
       map((result) =>
         result.items.map((x) => ({
           psmId: x.kennr,
           signal: x.signalwort,
+        }))
+      )
+    )
+  }
+
+  getPackaging(id: string): Observable<Packaging[]> {
+    const url = `${this.baseUrl}/mittel_abpackung/?kennr=${id}`
+
+    return this.http.get<PackagingQueryResult>(url).pipe(
+      map((result) =>
+        result.items.map((x) => ({
+          psmId: x.kennr,
+          number: x.anzahl,
+          unit: x.inhalt_einheit,
+          amount: x.menge,
+          type: x.verpackungsart,
+          material: x.verpackungsmaterial,
         }))
       )
     )

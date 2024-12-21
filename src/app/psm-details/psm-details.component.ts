@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { ActivatedRoute } from '@angular/router'
 
 import { forkJoin } from 'rxjs'
-import { keyBy } from 'lodash'
+import { keyBy, sortBy } from 'lodash'
 
 import { ChipModule } from 'primeng/chip'
 import { TagModule } from 'primeng/tag'
@@ -25,6 +25,13 @@ export class PsmDetailsComponent implements OnInit {
   hazardNotes: Code[] = []
   safetyNotes: Code[] = []
   signalWords: Code[] = []
+
+  packaging: {
+    material: Code
+    type: Code
+    unit: string
+    amount: string
+  }[] = []
 
   constructor(
     private route: ActivatedRoute,
@@ -64,6 +71,25 @@ export class PsmDetailsComponent implements OnInit {
     }).subscribe(({ codes, notes }) => {
       const lookup = keyBy(codes, 'code')
       this.safetyNotes = notes.map((x) => lookup[x.note]).filter((x) => x)
+    })
+
+    // packaging
+    forkJoin({
+      types: this.psmService.getCodeListByNumber(61),
+      material: this.psmService.getCodeListByNumber(62),
+      packaging: this.psmService.getPackaging(this.id),
+    }).subscribe(({ types, material, packaging }) => {
+      const typesLookup = keyBy(types, 'code')
+      const materialLookup = keyBy(material, 'code')
+
+      const unsorted = packaging.map((x) => ({
+        material: materialLookup[x.material],
+        type: typesLookup[x.type],
+        unit: x.unit,
+        amount: x.amount,
+      }))
+
+      this.packaging = sortBy(unsorted, ['type.value', 'material.value'])
     })
   }
 }

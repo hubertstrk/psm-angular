@@ -63,9 +63,22 @@ export interface SafetyNoteQueryResult {
   }[]
 }
 
-export interface SiganlWordQueryResult {
+export interface SignalWordQueryResult {
   items: {
     kennr: string
     signalwort: string
   }[]
+}
+
+export interface PackagingQueryResult {
+  items: [
+    {
+      anzahl: string
+      inhalt_einheit: string
+      kennr: string
+      menge: string
+      verpackungsart: string
+      verpackungsmaterial: string
+    },
+  ]
 }
