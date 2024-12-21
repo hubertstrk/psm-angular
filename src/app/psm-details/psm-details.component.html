@@ -1,0 +1,72 @@
+<div class="">
+  <div class="flex flex-column p-2 gap-1">
+    <div class="flex align-items-center justify-content-between">
+      <div class="text-primary text-lg">{{ psm?.name }}</div>
+      <div class="text-sm">{{ psm?.id }}</div>
+    </div>
+    <p-tag *ngFor="let signal of signalWords" [value]="signal.value"></p-tag>
+  </div>
+
+  <p-table
+    class="m-2"
+    [value]="[{ begin: psm?.firstApprovedAt, end: psm?.lastApprovedAt }]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between text-lg">
+        Zulassungszeitraum
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Start</th>
+        <th>Ende</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-approved>
+      <tr>
+        <td>{{ approved.begin | date: 'dd.MM.yyyy' }}</td>
+        <td>{{ approved.end | date: 'dd.MM.yyyy' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-table class="m-2" [value]="hazardNotes">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between text-lg">
+        Gefahrenhinweise
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Code</th>
+        <th>Hinweis</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-note>
+      <tr>
+        <td>{{ note.code }}</td>
+        <td>{{ note.value }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-table class="m-2" [value]="safetyNotes">
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between text-lg">
+        Sicherheitshinweise
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Code</th>
+        <th>Hinweis</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-note>
+      <tr>
+        <td>{{ note.code }}</td>
+        <td>{{ note.value }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

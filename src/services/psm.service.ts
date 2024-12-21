@@ -7,6 +7,9 @@ import {
   Code,
   PsmScope,
   PsmActiveAgent,
+  SafetyNote,
+  HazardNote,
+  SignalWord,
 } from '../models/psm.model'
 
 import {
@@ -15,6 +18,9 @@ import {
   CodeQueryResult,
   PsmScopeQueryResult,
   PsmActiveAgentQueryResult,
+  HazardNoteQueryResult,
+  SafetyNoteQueryResult,
+  SiganlWordQueryResult,
 } from '../models/query-result.model'
 
 @Injectable({ providedIn: 'root' })
@@ -22,11 +28,6 @@ export class PsmService {
   private http = inject(HttpClient)
   private baseUrl = 'https://psm-api.bvl.bund.de/ords/psm/api-v1'
 
-  /**
-   * 21: Wirkbereich
-   * @param codeListNumber
-   * @returns
-   */
   getCodeListByNumber(codeListNumber: number): Observable<Code[]> {
     const url = `${this.baseUrl}/kode/?kodeliste=${codeListNumber}&sprache=DE`
     return this.http.get<CodeQueryResult>(url).pipe(
@@ -120,6 +121,45 @@ export class PsmService {
           pureContentBaseStructure: x.gehalt_rein_grundstruktur,
           activeAgentId: x.wirknr,
           activeAgentVariant: x.wirkvar,
+        }))
+      )
+    )
+  }
+
+  getHazardNotes(id: string): Observable<HazardNote[]> {
+    const url = `${this.baseUrl}/ghs_gefahrenhinweise/?kennr=${id}`
+
+    return this.http.get<HazardNoteQueryResult>(url).pipe(
+      map((result) =>
+        result.items.map((x) => ({
+          psmId: x.kennr,
+          note: x.gefahrenhinweis,
+        }))
+      )
+    )
+  }
+
+  getSafetyNotes(id: string): Observable<SafetyNote[]> {
+    const url = `${this.baseUrl}/ghs_sicherheitshinweise/?kennr=${id}`
+
+    return this.http.get<SafetyNoteQueryResult>(url).pipe(
+      map((result) =>
+        result.items.map((x) => ({
+          psmId: x.kennr,
+          note: x.sicherheitshinweis,
+        }))
+      )
+    )
+  }
+
+  getSignalWord(id: string): Observable<SignalWord[]> {
+    const url = `${this.baseUrl}/ghs_signalwoerter/?kennr=${id}`
+
+    return this.http.get<SiganlWordQueryResult>(url).pipe(
+      map((result) =>
+        result.items.map((x) => ({
+          psmId: x.kennr,
+          signal: x.signalwort,
         }))
       )
     )

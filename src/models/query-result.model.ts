@@ -48,3 +48,24 @@ export interface PsmActiveAgentQueryResult {
     },
   ]
 }
+
+export interface HazardNoteQueryResult {
+  items: {
+    kennr: string
+    gefahrenhinweis: string
+  }[]
+}
+
+export interface SafetyNoteQueryResult {
+  items: {
+    kennr: string
+    sicherheitshinweis: string
+  }[]
+}
+
+export interface SiganlWordQueryResult {
+  items: {
+    kennr: string
+    signalwort: string
+  }[]
+}

@@ -36,3 +36,18 @@ export interface PsmActiveAgent {
   activeAgentId: string
   activeAgentVariant: string
 }
+
+export interface HazardNote {
+  psmId: string
+  note: string
+}
+
+export interface SafetyNote {
+  psmId: string
+  note: string
+}
+
+export interface SignalWord {
+  psmId: string
+  signal: string
+}

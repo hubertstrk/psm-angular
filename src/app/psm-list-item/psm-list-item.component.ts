@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ChipModule } from 'primeng/chip'
 import { TagModule } from 'primeng/tag'
+import { Router } from '@angular/router'
 
 import { Psm } from '../../models/psm.model'
 
@@ -14,4 +15,12 @@ import { Psm } from '../../models/psm.model'
 })
 export class PsmListItemComponent {
   @Input() item: Psm | null = null
+
+  constructor(private router: Router) {}
+
+  navigateToDetails() {
+    if (this.item) {
+      this.router.navigate(['/detail', this.item.id])
+    }
+  }
 }
