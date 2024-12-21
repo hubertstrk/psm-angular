@@ -7,8 +7,8 @@
   <app-scope-filter (filtered)="scopeFilterChanged($event)" />
   <app-agent-filter (filtered)="agentFilterChanged($event)" />
 
-  <div class="flex flex-column my-2 gap-1">
-    <div *ngFor="let item of psm" class="my-1">
+  <div class="flex flex-column my-2">
+    <div *ngFor="let item of psm" class="mb-1">
       <app-psm-list-item [item]="item" />
     </div>
   </div>

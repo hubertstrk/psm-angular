@@ -1,18 +1,17 @@
 <ng-container *ngIf="item">
   <div
+    class="flex flex-column border-1 surface-border border-round cursor-pointer p-2 gap-1"
     (click)="navigateToDetails()"
     (keydown.enter)="navigateToDetails()"
     tabindex="0"
   >
-    <div class="flex flex-column gap-1 border-1 border-gray-200 p-2">
-      <div class="flex justify-content-between gap-2">
-        <div class="text-lg text-primary">{{ item.name }}</div>
-        <div class="text-sm font-italic white-space-nowrap">{{ item.id }}</div>
-      </div>
-      <div class="text-sm text-gray-500">
-        {{ item.firstApprovedAt.toLocaleDateString() }} -
-        {{ item.lastApprovedAt.toLocaleDateString() }}
-      </div>
+    <div class="flex justify-content-between gap-2">
+      <div class="text-lg">{{ item.name }}</div>
+      <div class="text-sm white-space-nowrap">{{ item.id }}</div>
+    </div>
+    <div class="text-sm text-gray-300">
+      {{ item.firstApprovedAt.toLocaleDateString() }} -
+      {{ item.lastApprovedAt.toLocaleDateString() }}
     </div>
   </div>
 </ng-container>

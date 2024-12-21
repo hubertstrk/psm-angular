@@ -25,7 +25,7 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/assets/theme/themes/material/material-light/compact/psm/theme.scss",
+              "src/assets/theme/themes/material/material-dark/compact/psm/theme.scss",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css",
               "src/styles.scss"
